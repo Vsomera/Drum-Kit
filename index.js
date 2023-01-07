@@ -3,12 +3,14 @@ var drumButtons = document.getElementsByClassName("drum")
 for (let x = 0; x < drumButtons.length; x ++) {
     drumButtons[x].addEventListener("click", function() {      // listens for button clicks on all buttons
         playAudio(this.innerHTML)                              // sends key input to playAudio function
+        buttonAnimation(this.innerHTML)                        // sends key input buttonAnimation function
     });
 }
 
 document.addEventListener("keydown", function(event) {              // listens for keyboard input on website
-    playAudio((event.key).toLowerCase())                            // sends key input to playAudio function
-})
+        playAudio((event.key).toLowerCase())                        // sends key input to playAudio function
+        buttonAnimation(event.key.toLowerCase())                                  // sends key input buttonAnimation function
+    });
 
 function playAudio(keyVal) { 
     /*
@@ -44,5 +46,15 @@ function playAudio(keyVal) {
             audio.play();
             break;
     }   
-}
+};
 
+function buttonAnimation(keyVal) {
+    /*
+        Function animates the given key parameter by adding .pressed class
+    */       
+    var activeButton = document.querySelector("."+keyVal)
+    activeButton.classList.add("pressed");
+    setTimeout(function() {
+        activeButton.classList.remove("pressed")
+    }, 100)
+}
